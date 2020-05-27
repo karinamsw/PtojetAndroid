@@ -1,0 +1,19 @@
+{
+"Results": [
+{
+"name": "Balarama",
+"sex": "Male",
+"image": "https://elephant-api.herokuapp.com/pictures/missing.jpg",
+},
+{
+"name": "Black Diamond",
+"sex": "Male",
+"image": "https://elephant-api.herokuapp.com/pictures/005.jpg",
+},
+{
+"name": "Isilo",
+"sex": "Male",
+"image": "https://elephant-api.herokuapp.com/pictures/missing.jpg",
+}
+]
+}
