@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String BASE_URL = "https://pokeapi.co/";
+    private static final String BASE_URL = "https://raw.githubusercontent.com/karinamsw/PtojetAndroid/master/app/src/main/java/com/example/myelephant/";
 
     private RecyclerView recyclerView;
     private ListAdapter mAdapter;
