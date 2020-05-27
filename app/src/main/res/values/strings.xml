@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">My Elephant</string>
+    <string name="description">string</string>
+    <string name="todo">todo</string>
+    <string name="example_application">example_application</string>
+</resources>
