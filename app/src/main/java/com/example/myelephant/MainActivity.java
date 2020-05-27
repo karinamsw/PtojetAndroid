@@ -90,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        ElephantApi pokeApi = retrofit.create(ElephantApi.class);
+        ElephantApi elephantApi = retrofit.create(ElephantApi.class);
 
         Log.d("VINCE", "BEFORE CALLBACK");
-        Call<RestElephantResponse> call = pokeApi.getElephantResponse();
+        Call<RestElephantResponse> call = elephantApi.getElephantResponse();
         call.enqueue(new Callback<RestElephantResponse>() {
 
             @Override

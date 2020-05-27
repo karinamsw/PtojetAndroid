@@ -3,10 +3,13 @@ package com.example.myelephant;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -19,6 +22,7 @@ import java.util.List;
         // you provide access to all the views for a data item in a view holder
         class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
+            ImageView mImage = itemView.findViewById(R.id.icon);
             TextView txtHeader;
             TextView txtFooter;
             View layout;
@@ -65,6 +69,7 @@ import java.util.List;
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
             final Elephant currentElephant = values.get(position);
+            Picasso.get().load(currentElephant.getImage()).resize(300,300).into(holder.mImage);
             holder.txtHeader.setText(currentElephant.getName());
             holder.txtHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -73,7 +78,7 @@ import java.util.List;
                 }
             });
 
-            holder.txtFooter.setText(currentElephant.getUrl());
+            holder.txtFooter.setText(currentElephant.getSex());
         }
 
         // Return the size of your dataset (invoked by the layout manager)
