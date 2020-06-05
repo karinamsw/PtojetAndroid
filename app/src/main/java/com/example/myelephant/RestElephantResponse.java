@@ -4,11 +4,11 @@ import java.util.List;
 
 public class RestElephantResponse {
 
-    private List<Elephant> results;
+    private List<Elephant> Results;
 
 
     public List<Elephant> getResults() {
-        return results;
+        return Results;
     }
 }
 
