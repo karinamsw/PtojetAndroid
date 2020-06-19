@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //sharedPreferences = getSharedPreferences("application_elephant", Context.MODE_PRIVATE);
-        //gson = new GsonBuilder().setLenient().create();
+        sharedPreferences = getSharedPreferences("application_elephant", Context.MODE_PRIVATE);
+        gson = new GsonBuilder().setLenient().create();
         makeApiCall();
     }
 
@@ -58,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         private void makeApiCall () {
-           Gson gson = new GsonBuilder()
-                   .setLenient()
-                   .create();
+
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -79,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (response.isSuccessful() && response.body() != null) {
                         List<Elephant> elephantList = response.body().getResults();
+                        saveList(elephantList);
                         showList(elephantList);
                         Toast.makeText(getApplicationContext(), "API Success", Toast.LENGTH_SHORT).show();
 
@@ -97,7 +96,17 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        private void showError (){
+    private void saveList(List<Elephant> elephantList) {
+       String jsonString = gson.toJson(elephantList);
+        sharedPreferences
+                    .edit()
+                    .putString("jsonElephantList",jsonString)
+                    .apply();
+        Toast.makeText(getApplicationContext(), "list sauvegardée", Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void showError (){
             Toast.makeText(getApplicationContext(), "API Error", Toast.LENGTH_SHORT).show();
 
         }
