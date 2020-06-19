@@ -1,4 +1,4 @@
-package com.example.myelephant;
+package com.example.myelephant.presentation.model;
 
 import java.util.List;
 

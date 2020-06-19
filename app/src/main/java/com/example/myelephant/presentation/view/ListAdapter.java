@@ -1,4 +1,4 @@
-package com.example.myelephant;
+package com.example.myelephant.presentation.view;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myelephant.R;
+import com.example.myelephant.presentation.model.Elephant;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
