@@ -1,4 +1,4 @@
-package com.example.myelephant;
+package com.example.myelephant.presentation.model;
 
 public class Elephant {
     private String id;

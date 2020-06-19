@@ -1,4 +1,4 @@
-package com.example.myelephant;
+package com.example.myelephant.presentation.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +11,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.myelephant.Constants;
+import com.example.myelephant.R;
+import com.example.myelephant.data.ElephantApi;
+import com.example.myelephant.presentation.model.Elephant;
+import com.example.myelephant.presentation.model.RestElephantResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
