@@ -42,24 +42,39 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("application_elephant", Context.MODE_PRIVATE);
         gson = new GsonBuilder().setLenient().create();
-        makeApiCall();
+
+        List<Elephant> elephantList = getDataFromCache();
+
+        if(elephantList != null ){
+            showList(elephantList);
+        } else {
+            makeApiCall();
+        }
     }
 
+    private List<Elephant> getDataFromCache(){
+        String jsonElephant = sharedPreferences.getString(Constants.KEY_ELEPHANT_LIST, null);
 
-        private void showList (List <Elephant> elephantList) {
-            recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-            recyclerView.setHasFixedSize(true);
-            layoutManager = new LinearLayoutManager(this);
-            recyclerView.setLayoutManager(layoutManager);
+        if(jsonElephant == null){
+            return null;
+        } else {
+           Type listType = new TypeToken<List<Elephant>>(){}.getType();
+           return gson.fromJson(jsonElephant, listType);
+        }
+    }
 
-            mAdapter = new ListAdapter(elephantList);
-            recyclerView.setAdapter(mAdapter);
+    private void showList (List <Elephant> elephantList) {
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+         recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new ListAdapter(elephantList);
+        recyclerView.setAdapter(mAdapter);
         }
 
 
-        private void makeApiCall () {
-
-
+        private void makeApiCall (){
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
@@ -70,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("VINCE", "BEFORE CALLBACK");
             Call<RestElephantResponse> call = elephantApi.getElephantResponse();
             call.enqueue(new Callback<RestElephantResponse>() {
+
 
                 @Override
                 public void onResponse(Call<RestElephantResponse> call, Response<RestElephantResponse> response) {
@@ -87,22 +103,19 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-
                 public void onFailure(@NonNull Call<RestElephantResponse> call, Throwable t) {
                     showError();
                 }
             });
-            Log.d("VINCE", "AFTER CALLBACK");
-
         }
 
     private void saveList(List<Elephant> elephantList) {
        String jsonString = gson.toJson(elephantList);
         sharedPreferences
                     .edit()
-                    .putString("jsonElephantList",jsonString)
+                    .putString(Constants.KEY_ELEPHANT_LIST,jsonString)
                     .apply();
-        Toast.makeText(getApplicationContext(), "list sauvegardée", Toast.LENGTH_SHORT).show();
+
 
     }
 
