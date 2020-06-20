@@ -17,7 +17,12 @@ import java.util.List;
 
 
     public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
-        private List<Elephant> values;
+        private final List<Elephant> values;
+        private final OnItemClickListner listner;
+
+        public interface OnItemClickListner {
+            void onItemClick(Elephant item);
+        }
 
 
         class ViewHolder extends RecyclerView.ViewHolder {
@@ -46,9 +51,10 @@ import java.util.List;
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        ListAdapter(List<Elephant> myDataset) {
+        ListAdapter(List<Elephant> myDataset, OnItemClickListner listner) {
 
-            values = myDataset;
+            this.values = myDataset;
+            this.listner = listner;
         }
 
         // Create new views (invoked by the layout manager)
@@ -68,14 +74,16 @@ import java.util.List;
             final Elephant currentElephant = values.get(position);
             Picasso.get().load(currentElephant.getImage()).resize(300,300).into(holder.mImage);
             holder.txtHeader.setText(currentElephant.getName());
-            holder.txtHeader.setOnClickListener(new View.OnClickListener() {
+            holder.txtFooter.setText(currentElephant.getSex());
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    remove(position);
+                    listner.onItemClick(currentElephant);
                 }
             });
 
-            holder.txtFooter.setText(currentElephant.getSex());
+
         }
 
         @Override
