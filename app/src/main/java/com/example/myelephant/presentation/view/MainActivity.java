@@ -5,10 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.myelephant.R;
+import com.example.myelephant.Singletons;
 import com.example.myelephant.presentation.controller.MainController;
 import com.example.myelephant.presentation.model.Elephant;
 import com.google.gson.GsonBuilder;
@@ -61,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
     public void navigateToDetails(Elephant elephant) {
-        Toast.makeText(getApplicationContext(), "to do navigate", Toast.LENGTH_SHORT).show();
+        Intent myIntent = new Intent(MainActivity.this, DetailActivity.class);
+        myIntent.putExtra("elephantKey", Singletons.getGson().toJson(elephant));
+        MainActivity.this.startActivity(myIntent);
+
     }
 }

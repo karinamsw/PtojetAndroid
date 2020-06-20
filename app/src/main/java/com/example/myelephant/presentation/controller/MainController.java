@@ -31,7 +31,7 @@ public class MainController {
     private Gson gson;
     private MainActivity view;
 
-    public MainController(MainActivity mainActivity,Gson gson, SharedPreferences sharedPreferences) {
+    public MainController(MainActivity mainActivity, Gson gson, SharedPreferences sharedPreferences) {
         this.view = mainActivity;
         this.gson = gson;
         this.sharedPreferences = sharedPreferences;
@@ -50,40 +50,40 @@ public class MainController {
         }
     }
 
-        private void makeApiCall () {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(Constants.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build();
+    private void makeApiCall() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
 
-            ElephantApi elephantApi = retrofit.create(ElephantApi.class);
+        ElephantApi elephantApi = retrofit.create(ElephantApi.class);
 
-            Log.d("VINCE", "BEFORE CALLBACK");
-            Call<RestElephantResponse> call = elephantApi.getElephantResponse();
-            call.enqueue(new Callback<RestElephantResponse>() {
+        Log.d("VINCE", "BEFORE CALLBACK");
+        Call<RestElephantResponse> call = elephantApi.getElephantResponse();
+        call.enqueue(new Callback<RestElephantResponse>() {
 
 
-                @Override
-                public void onResponse(Call<RestElephantResponse> call, Response<RestElephantResponse> response) {
-                    Log.d("VINCE", "INSIDE CALLBACK");
+            @Override
+            public void onResponse(Call<RestElephantResponse> call, Response<RestElephantResponse> response) {
+                Log.d("VINCE", "INSIDE CALLBACK");
 
-                    if (response.isSuccessful() && response.body() != null) {
-                        List<Elephant> elephantList = response.body().getResults();
-                        saveList(elephantList);
-                        view.showList(elephantList);
-                        //Toast.makeText(getApplicationContext(), "API Success", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Elephant> elephantList = response.body().getResults();
+                    saveList(elephantList);
+                    view.showList(elephantList);
+                    //Toast.makeText(getApplicationContext(), "API Success", Toast.LENGTH_SHORT).show();
 
-                    } else {
-                        view.showError();
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull Call<RestElephantResponse> call, Throwable t) {
+                } else {
                     view.showError();
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<RestElephantResponse> call, Throwable t) {
+                view.showError();
+            }
+        });
+    }
 
     private void saveList(List<Elephant> elephantList) {
         String jsonString = gson.toJson(elephantList);
@@ -109,18 +109,9 @@ public class MainController {
     }
 
 
-
-
-    public void onItemClick(Elephant elephant){
+    public void onItemClick(Elephant elephant) {
         view.navigateToDetails(elephant);
 
     }
 
-    public void onButtonAClick(){
-
-    }
-
-    public void onButtonBClick(){
-
-    }
 }
