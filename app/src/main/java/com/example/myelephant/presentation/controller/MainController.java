@@ -112,6 +112,7 @@ public class MainController {
 
 
     public void onItemClick(Elephant elephant){
+        view.navigateToDetails(elephant);
 
     }
 
